@@ -5,8 +5,9 @@
   $.fn.fakeReplace = (replaceFn) ->
     @each ->
       $t = $ @
-      ret = replaceFn $t.html()
-      return unless ret?
+      orig = $t.html()
+      ret = replaceFn orig
+      return if ret == orig
       r = $t.clone().html(ret).appendTo('body')
       o = $t.offset()
       w = r.width()

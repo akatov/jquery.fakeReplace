@@ -1,10 +1,11 @@
 (function($) {
   $.fn.fakeReplace = function(replaceFn) {
     return this.each(function() {
-      var $t, f, o, r, ret, w;
+      var $t, f, o, orig, r, ret, w;
       $t = $(this);
-      ret = replaceFn($t.html());
-      if (ret == null) {
+      orig = $t.html();
+      ret = replaceFn(orig);
+      if (ret === orig) {
         return;
       }
       r = $t.clone().html(ret).appendTo('body');
