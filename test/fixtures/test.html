@@ -1,0 +1,32 @@
+<html>
+<head>
+<style>
+.aha{color:orange}
+</style>
+<script src="components/jquery/jquery.js"></script>
+<script src="jquery.fakeReplace.js"></script>
+<script>
+
+$(function(){
+  $('#a').fakeReplace({text: 'somebody\'s super long text'})
+})
+</script>
+</head>
+<body>
+
+<div>this is the first paragraph</div>
+
+<div id='main' style='background-color:cyan'>
+
+<span class='aha'>this is the main text</span>
+<span>this is the other main text</span>
+
+<span
+id='a'
+style='color:red; font-size:1em; font-weight: bolder; font-style:italic'
+>to_be_replaced_text_which_however is_very_long_and_contiguous
+</span>
+<span style='color:yellow;background-color:grey'>something else</span>
+<br>
+</div>
+</body></html>
