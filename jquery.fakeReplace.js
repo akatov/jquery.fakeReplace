@@ -28,7 +28,7 @@
   };
   $.fn.fakeReplace = function(replaceFn) {
     return this.each(function() {
-      var $t, f, o, orig, r, ret, w;
+      var $t, o, orig, r, ret, w;
       $t = $(this);
       orig = $t.html();
       ret = replaceFn(orig);
@@ -42,12 +42,6 @@
         top: -1000,
         left: 0
       });
-      while ($t.width() > w) {
-        f = $t.css('font-size');
-        f = f.substr(0, f.length - 2);
-        --f;
-        $t.css('font-size', "" + f + "px");
-      }
       while ($t.width() < w) {
         $t.html("" + ($t.html()) + "&nbsp;");
       }
