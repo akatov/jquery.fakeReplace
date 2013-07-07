@@ -38,7 +38,7 @@
       r = $t.clone().html(ret).appendTo('body').css($t.getStyleObject());
       o = $t.offset();
       w = r.width();
-      $t.offset({
+      $t.css('position', 'relative').offset({
         top: -1000,
         left: 0
       });

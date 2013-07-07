@@ -29,7 +29,7 @@
       r = $t.clone().html(ret).appendTo('body').css($t.getStyleObject())
       o = $t.offset()
       w = r.width()
-      $t.offset top: -1000, left: 0
+      $t.css('position', 'relative').offset(top: -1000, left: 0)
       while $t.width() > w
         f = $t.css('font-size')
         f = f.substr(0, f.length - 2)
