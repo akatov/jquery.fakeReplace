@@ -1,30 +1,27 @@
 (function($) {
-  $.fn.fakeReplace = function(options) {
-    var settings;
-    settings = $.extend({
-      element: null,
-      text: "",
-      css: []
-    }, options);
+  $.fn.fakeReplace = function(replaceFn) {
     return this.each(function() {
-      var f, o, r, self, w;
-      self = $(this);
-      r = $('<span>' + settings.text + '</span>');
-      r.appendTo('body');
-      o = self.offset();
+      var $t, f, o, r, ret, w;
+      $t = $(this);
+      ret = replaceFn($t.html());
+      if (ret == null) {
+        return;
+      }
+      r = $t.clone().html(ret).appendTo('body');
+      o = $t.offset();
       w = r.width();
-      self.offset({
+      $t.offset({
         top: -1000,
         left: 0
       });
-      while (self.width() > w) {
-        f = self.css('font-size');
+      while ($t.width() > w) {
+        f = $t.css('font-size');
         f = f.substr(0, f.length - 2);
         --f;
-        self.css('font-size', "" + f + "px");
+        $t.css('font-size', "" + f + "px");
       }
-      while (self.width() < w) {
-        self.html("" + (self.html()) + "&nbsp;");
+      while ($t.width() < w) {
+        $t.html("" + ($t.html()) + "&nbsp;");
       }
       return r.css('position', 'absolute').offset(o).show();
     });

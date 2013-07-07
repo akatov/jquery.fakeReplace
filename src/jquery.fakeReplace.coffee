@@ -1,24 +1,23 @@
 (($) ->
-  $.fn.fakeReplace = (options) ->
-    settings = $.extend(
-      element: null
-      text: ""
-      css: []
-    , options)
+  # @param [Function] replaceFn a function which takes the contents of the tag
+  #   and returns the fake contents to replace it with. replaceFn should return
+  #   null if the tag should be left alone
+  $.fn.fakeReplace = (replaceFn) ->
     @each ->
-      self = $ @
-      r = $('<span>' + settings.text + '</span>')
-      r.appendTo('body')
-      o = self.offset()
+      $t = $ @
+      ret = replaceFn $t.html()
+      return unless ret?
+      r = $t.clone().html(ret).appendTo('body')
+      o = $t.offset()
       w = r.width()
-      self.offset top: -1000, left: 0
-      while self.width() > w
-        f = self.css('font-size')
+      $t.offset top: -1000, left: 0
+      while $t.width() > w
+        f = $t.css('font-size')
         f = f.substr(0, f.length - 2)
         --f
-        self.css 'font-size', "#{f}px"
-      while self.width() < w
-        self.html "#{self.html()}&nbsp;"
+        $t.css 'font-size', "#{f}px"
+      while $t.width() < w
+        $t.html "#{$t.html()}&nbsp;"
       r.css('position', 'absolute').offset(o).show()
   null
 )(jQuery)
