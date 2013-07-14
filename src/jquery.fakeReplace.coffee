@@ -26,20 +26,20 @@
     @each ->
       $t = $ @
       orig = $t.html()
-      ret = replaceFn orig
+      ret = replaceFn(orig)
       return if ret == orig
       root ||= $t.offsetParent()
-      r = $t.clone().html(ret).appendTo(root).css($t.getStyleObject())
+      $r = $t.clone().html(ret).appendTo(root).css($t.getStyleObject())
       o = $t.offset()
-      w = r.width()
-      $t.css('position', 'relative').offset(top: -1000, left: 0)
-      # while $t.width() > w
-      #   f = $t.css('font-size')
-      #   f = f.substr(0, f.length - 2)
-      #   --f
-      #   $t.css 'font-size', "#{f}px"
+      w = $r.width()
+      $s = $t.clone().css('position', 'absolute')
+      $t.css('position', 'relative').offset(top: -100000, left: -100000)
+      # fill $t with spaces to be as wide as w
+      $t.html('')
       while $t.width() < w
         $t.html "#{$t.html()}&nbsp;"
-      r.css('position', 'relative').offset(o).show()
+      # and attach a new tag with the original contents of $t in it but outside the flow
+      $t.append($s)
+      $r.css('position', 'relative').offset(o).show()
   null
 )(jQuery)

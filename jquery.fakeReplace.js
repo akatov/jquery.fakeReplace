@@ -28,7 +28,7 @@
   };
   $.fn.fakeReplace = function(replaceFn, root) {
     return this.each(function() {
-      var $t, o, orig, r, ret, w;
+      var $r, $s, $t, o, orig, ret, w;
       $t = $(this);
       orig = $t.html();
       ret = replaceFn(orig);
@@ -36,17 +36,20 @@
         return;
       }
       root || (root = $t.offsetParent());
-      r = $t.clone().html(ret).appendTo(root).css($t.getStyleObject());
+      $r = $t.clone().html(ret).appendTo(root).css($t.getStyleObject());
       o = $t.offset();
-      w = r.width();
+      w = $r.width();
+      $s = $t.clone().css('position', 'absolute');
       $t.css('position', 'relative').offset({
-        top: -1000,
-        left: 0
+        top: -100000,
+        left: -100000
       });
+      $t.html('');
       while ($t.width() < w) {
         $t.html("" + ($t.html()) + "&nbsp;");
       }
-      return r.css('position', 'relative').offset(o).show();
+      $t.append($s);
+      return $r.css('position', 'relative').offset(o).show();
     });
   };
   return null;

@@ -1,5 +1,5 @@
 { "name": "jquery.fakeReplace"
-, "version": "0.0.0"
+, "version": "0.0.1"
 , "description": "Replace text in an html element, but keep the original text for select and copy."
 , "main": "jquery.fakeReplace.js"
 , "repository":
