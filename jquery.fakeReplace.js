@@ -26,7 +26,7 @@
     }
     return this.css();
   };
-  $.fn.fakeReplace = function(replaceFn) {
+  $.fn.fakeReplace = function(replaceFn, root) {
     return this.each(function() {
       var $t, o, orig, r, ret, w;
       $t = $(this);
@@ -35,7 +35,8 @@
       if (ret === orig) {
         return;
       }
-      r = $t.clone().html(ret).appendTo('body').css($t.getStyleObject());
+      root || (root = $t.offsetParent());
+      r = $t.clone().html(ret).appendTo(root).css($t.getStyleObject());
       o = $t.offset();
       w = r.width();
       $t.css('position', 'relative').offset({
@@ -45,7 +46,7 @@
       while ($t.width() < w) {
         $t.html("" + ($t.html()) + "&nbsp;");
       }
-      return r.css('position', 'absolute').offset(o).show();
+      return r.css('position', 'relative').offset(o).show();
     });
   };
   return null;

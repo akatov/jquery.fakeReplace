@@ -18,15 +18,18 @@
     @css()
 
   # @param [Function] replaceFn a function which takes the contents of the tag
-  #   and returns the fake contents to replace it with. replaceFn should return
-  #   null if the tag should be left alone
-  $.fn.fakeReplace = (replaceFn) ->
+  #  and returns the fake contents to replace it with. replaceFn should be the
+  #  identity if the tag should be left alone
+  # @param [String, jQuery] root where to attach the replacement to. Defaults to
+  #  the offsetParent() of this
+  $.fn.fakeReplace = (replaceFn, root) ->
     @each ->
       $t = $ @
       orig = $t.html()
       ret = replaceFn orig
       return if ret == orig
-      r = $t.clone().html(ret).appendTo('body').css($t.getStyleObject())
+      root ||= $t.offsetParent()
+      r = $t.clone().html(ret).appendTo(root).css($t.getStyleObject())
       o = $t.offset()
       w = r.width()
       $t.css('position', 'relative').offset(top: -1000, left: 0)
@@ -37,6 +40,6 @@
       #   $t.css 'font-size', "#{f}px"
       while $t.width() < w
         $t.html "#{$t.html()}&nbsp;"
-      r.css('position', 'absolute').offset(o).show()
+      r.css('position', 'relative').offset(o).show()
   null
 )(jQuery)
