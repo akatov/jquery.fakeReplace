@@ -36,8 +36,7 @@
       $t.css('position', 'relative').offset(top: -100000, left: -100000)
       # fill $t with spaces to be as wide as w
       $t.html('')
-      while $t.width() < w
-        $t.html "#{$t.html()}&nbsp;"
+      $t.css('margin-right', w)
       # and attach a new tag with the original contents of $t in it but outside the flow
       $t.append($s)
       $r.css('position', 'relative').offset(o).show()

@@ -45,9 +45,7 @@
         left: -100000
       });
       $t.html('');
-      while ($t.width() < w) {
-        $t.html("" + ($t.html()) + "&nbsp;");
-      }
+      $t.css('margin-right', w);
       $t.append($s);
       return $r.css('position', 'relative').offset(o).show();
     });
